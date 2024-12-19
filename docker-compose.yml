@@ -3,8 +3,7 @@ version: '3.9'
 services:
   # PHP + Apache Service
   app:
-    build:
-      context: .  # Build from the current directory where your Dockerfile is located
+    image: rabinmaharjan07/php-hello-world  # Pulls the php-hello-world image from your Docker Hub repository
     container_name: intuji-devops-php-apache  # Name of the container
     ports:
       - "8088:80"  # Map port 8088 on the host to port 80 on the container
