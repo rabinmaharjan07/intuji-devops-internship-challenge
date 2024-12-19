@@ -1,19 +1,18 @@
-name: PHP CI/CD Action
+name: Reusable PHP CI/CD Workflow
 
-inputs:
-  docker-compose-file:
-    description: 'Path to the docker-compose.yml file'
-    required: true
-    default: 'docker-compose.yml'
+on:
+  workflow_call: # This makes the workflow reusable
+    inputs:
+      docker-compose-file:
+        description: 'Path to the docker-compose.yml file'
+        required: true
+        default: 'docker-compose.yml'
 
-  deploy:
-    description: 'Whether to deploy the application'
-    required: false
-    default: 'false'
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
 
-runs:
-  using: "composite"
-  steps:
+    steps:
     # Checkout the code
     - name: Checkout code
       uses: actions/checkout@v3
@@ -30,7 +29,14 @@ runs:
     - name: Run tests
       run: docker-compose -f ${{ inputs.docker-compose-file }} run --rm app php ./vendor/bin/phpunit tests
 
-    # Deploy the application (if enabled)
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Start the application locally
     - name: Start application
-      if: ${{ inputs.deploy == 'true' }}
       run: docker-compose up -d
