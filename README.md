@@ -33,3 +33,6 @@ use Silarhi\Hello;
 $hello = new Hello();
 echo $hello->display() . "\n";
 ```
+
+in the container this shall be installed 
+curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

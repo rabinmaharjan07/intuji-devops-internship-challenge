@@ -5,18 +5,17 @@ services:
   app:
     build:
       context: .  # Build from the current directory where your Dockerfile is located
-    container_name: php-apache-app
+    container_name: intuji-devops-php-apache  # Name of the container
     ports:
-      - "8088:80"  # Map port 8082 on the host to port 80 on the container
+      - "8088:80"  # Map port 8088 on the host to port 80 on the container
     volumes:
-      - .:/var/www/html  # Mount the current directory into the container for live updates
+      - .:/var/www/html # Mount the current directory into the container for live updates
     networks:
       - app-network
     environment:
-      - TZ=Asia/Kathmandu  # Set the timezone to Nepal Time
-
+      - TZ=Asia/Kathmandu  # Set the timezone to Nepal Time (although the container already sets it)
+  
 # Networks
 networks:
   app-network:
     driver: bridge
-

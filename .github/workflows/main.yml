@@ -1,0 +1,21 @@
+name: CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  php-cicd:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Trigger the reusable action
+    - name: Run PHP CI/CD Action
+      uses: ./.github/actions/php-cicd/action.yml
+      with:
+        docker-compose-file: docker-compose.yml
+        deploy: 'true'
